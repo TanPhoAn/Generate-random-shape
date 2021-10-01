@@ -1,0 +1,134 @@
+using System;
+using System.Collections.Generic;
+namespace GraphicObjects
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            
+            Random rng = new Random();
+            for (int i = 0; i < 20; i++)
+            {
+                //int choose = rng.Next(0, 4);
+                int choose =1;
+                List<Shape> list = new List<Shape>();
+                switch (choose)
+                {
+                    case 1: //line
+
+                        Shape s = new Line();
+                        Point p2 = new Point();
+                        Point p1 = new Point();
+                        p1.RandomPoint();
+                        p2.RandomPoint();
+                        s.input(p1, p2);
+                        s.output();
+                        list.Add(s);
+                        break;
+
+                    //case 2:
+                    //    Rectangle r1 = new Rectangle();
+                    //    r1.ltPoint.RandomPoint();
+                    //    r1.rbPoint.RandomPoint();
+                    //    break;
+
+                    //case 3:
+                    //    Ellipse e1 = new Ellipse();
+                    //    e1.ltPoint.RandomPoint();
+                    //    e1.rbPoint.RandomPoint();
+                    //    break;
+                }
+            }
+        }
+        class Point
+        {
+            protected float x;
+            protected float y;
+            public float getX
+            {
+                get {
+                    return x;
+                }
+                set
+                {
+                    x = value;
+                }
+            }
+            public float getY
+            {
+                get
+                {
+                    return y;
+                }
+                set
+                {
+                    y = value;
+                }
+            }
+            public void RandomPoint()
+            {
+
+                Random rd = new Random();
+
+                
+
+                float temp01 = rd.Next() % 10;
+                float temp02 = rd.Next() % 10;
+                if (temp01 == temp02)
+                {
+                    temp02 = rd.Next() % 10;
+                }
+                this.getX = temp01;
+                this.getY = temp02;
+                
+
+
+            }
+
+        }
+        class Line : Shape
+        {
+            public Point StartPoint;
+            public Point EndPoint;
+            public override void output()
+            {
+                Console.WriteLine($"({StartPoint.getX},{StartPoint.getY}), ({EndPoint.getX},{EndPoint.getY})");
+            }
+           public override void input(Point p1, Point p2)
+            {
+                this.StartPoint.getX = p1.getX;
+                this.StartPoint.getY = p1.getY;
+                this.EndPoint.getX = p2.getX;
+                this.EndPoint.getY = p2.getY;
+            }
+        }
+        class Rectangle:Shape
+        {
+            public Point ltPoint, rbPoint;
+            public override void input(Point p1, Point p2)
+            {
+                this.ltPoint.getX = p1.getX;    
+                this.ltPoint.getY = p1.getY;
+                this.rbPoint.getX = p2.getX;
+                this.rbPoint.getY = p2.getY;
+            }
+            public override void output()
+            {
+                Console.WriteLine($"({ltPoint.getX}, {ltPoint.getY}), ({rbPoint.getX}, {rbPoint.getY})");
+            }
+        }
+
+        class Ellipse :Rectangle{}
+        abstract class Shape
+        {
+
+            public abstract void input(Point p1, Point p2);
+            public abstract void output();
+        }
+        
+         
+
+    }
+    
+}
